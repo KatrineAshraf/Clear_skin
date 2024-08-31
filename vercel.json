@@ -7,24 +7,6 @@
         "config": {
           "distDir": "dist"
         }
-      },
-      {
-        "src": "src/**.jsx",
-        "use": "@vercel/static-build",
-        "config": {
-          "distDir": "dist"
-        }
-      },
-      {
-        "src": "src/**/*.jsx",
-        "use": "@vercel/static-build",
-        "config": {
-          "distDir": "dist"
-        }
-      },
-      {
-        "src": "Public/*.*",
-        "use":  "@vercel/static-build"
       }
     ],
     "routes": [
