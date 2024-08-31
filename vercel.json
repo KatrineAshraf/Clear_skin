@@ -5,28 +5,11 @@
         "src": "package.json",
         "use": "@vercel/static-build",
         "config": {
-          "distDir": "dist"  
+          "distDir": "dist"
         }
-      },{
-        "src": "/public/(.*)$",
-        "use": "@vercel/static-build"
-      
       }
-
     ],
     "routes": [
-      {
-        "src": "^/static/(.*)$",
-        "dest": "/static/$1"
-      },
-      {
-        "src": "^/assets/(.*)$",
-        "dest": "/assets/$1"
-      },
-      {
-        "src": "^/public/(.*)$",
-        "dest": "/public/$1"
-      },
       {
         "src": "/(.*)",
         "dest": "/index.html"
