@@ -15,8 +15,8 @@
         "dest": "/static/$1"
       },
       {
-        "src": "^/assets/(.*)$",
-        "dest": "/$1"
+        "src": "^/(.*)$",
+        "dest": "/assets/$1"
       },
       {
         "src": "/(.*)",
