@@ -1,4 +1,4 @@
-.App {
+.main {
   font-family: sans-serif;
   text-align: center;
   max-width: 600px;
@@ -15,4 +15,14 @@ button {
   padding: 10px 20px;
   margin-top: 10px;
 }
+ .results h2 {
+  text-align: center;
+ }
 
+ ul{
+  display: flex;
+  flex-direction: column;
+  justify-content: baseline;
+  align-self: center;
+  align-items: center;
+ }
