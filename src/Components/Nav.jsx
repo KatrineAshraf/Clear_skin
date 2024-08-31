@@ -4,7 +4,7 @@ import React from 'react';
 const Nav = () => {
   return (
     <nav style={headerStyles}>
-      <img src="../src/assets/clean.png" style={imageStyle} />
+      <img src="../Public/clean.png" style={imageStyle} />
       <h1 style={FontStyle}>Clear Skin</h1>
     </nav>
   );
