@@ -117,54 +117,84 @@ const App = () => {
   const [violations, setViolations] = useState([]);
   const [clicked, setClicked] = useState(false); // Use state for handling click
 
-  // Function to validate ingredients and percentages
   const validateIngredients = (ingredientList) => {
     const violations = [];
-
+    
     // Splitting and parsing input to extract ingredient names and their percentages if available
     const ingredientArray = ingredientList.split(',').map(item => item.trim());
-    console.log(ingredientArray);
+  
+    
     ingredientArray.forEach(entry => {
-      // Check for percentages; assumes format like "IngredientName 5%" or just "IngredientName"
-      const match = entry.match(/(.+?)\s*([\d.]+%)?$/);
+      // Update regex to handle percentages with or without the '%' symbol
+      const match = entry.match(/(.+?)\s*([\d.]+%?)$/);
+      
       if (match) {
         const ingredient = match[1].trim().toLowerCase();
-        const percentageValue = match[2] ? parseFloat(match[2]) : null;
-
+        // Extract percentage value and convert to number, default to null if not present
+        const percentageValue = match[2] ? parseFloat(match[2].replace('%', '')) : null;
+        
         // Check exact matches and synonyms, and handle presence without specific percentage
         checkIngredientViolation(ingredient, percentageValue, violations);
       }
+      else {
+        const ingredient = entry.trim().toLowerCase();
+        const percentageValue = null;
+        checkIngredientViolation(ingredient, percentageValue, violations);
+      }
     });
-
+    
     return violations;
+  };
+  
+  
+  
+  const capitalizeEachWord = (sentence) => {
+    return sentence
+      .split(' ') // Split the sentence into words
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // Capitalize the first letter of each word and make the rest lowercase
+      .join(' '); // Join the words back into a sentence
   };
 
   const checkIngredientViolation = (ingredient, percentageValue, violations) => {
     // Check exact matches, converting keys to lowercase for case-insensitive match
     const normalizedIngredient = ingredient.toLowerCase();
-
+    
     if (forbiddenIngredients[normalizedIngredient]) {
       const { maxPercentage } = forbiddenIngredients[normalizedIngredient];
-      if (maxPercentage !== null && percentageValue !== null && percentageValue > maxPercentage) {
-        violations.push(`${ingredient} exceeds the allowed limit of ${maxPercentage}%`);
-      } else if (maxPercentage === null) {
-        violations.push(`${ingredient}`);
+      
+      if (maxPercentage !== null) {
+        // Only perform percentage check if maxPercentage is not null
+        if (percentageValue !== null && percentageValue > maxPercentage) {
+          violations.push(`${capitalizeEachWord(ingredient)} exceeds the allowed limit of ${maxPercentage}%`);
+        } else if (percentageValue === null) {
+          violations.push(`${capitalizeEachWord(ingredient)} is not allowed`);
+        }
+      } else {
+        // If maxPercentage is null, the ingredient is not allowed regardless of percentage
+        violations.push(`${capitalizeEachWord(ingredient)} is not allowed`);
       }
     }
-
+    
     // Check synonyms, ensuring case-insensitivity
     Object.entries(forbiddenIngredients).forEach(([key, value]) => {
       const normalizedKey = key.toLowerCase();
       if (value.synonyms.map(s => s.toLowerCase()).includes(normalizedIngredient)) {
         const { maxPercentage } = value;
-        if (maxPercentage !== null && percentageValue !== null && percentageValue > maxPercentage) {
-          violations.push(`${ingredient} exceeds the allowed limit of ${maxPercentage}%`);
-        } else if (maxPercentage === null) {
-          violations.push(`${ingredient}`);
+        if (maxPercentage !== null) {
+          if (percentageValue !== null && percentageValue > maxPercentage) {
+            violations.push(`${capitalizeEachWord(ingredient)} exceeds the allowed limit of ${maxPercentage}%`);
+          } else if (percentageValue === null) {
+            violations.push(`${capitalizeEachWord(ingredient)} is not allowed`);
+          }
+        } else {
+          // If maxPercentage is null, the ingredient is not allowed regardless of percentage
+          violations.push(`${capitalizeEachWord(ingredient)} is not allowed`);
         }
       }
     });
   };
+  
+  
 
   // Handle form submission
   const handleSubmit = (e) => {
