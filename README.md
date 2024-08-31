@@ -1,8 +1,3 @@
-# React + Vite
+# <img src="https://github.com/user-attachments/assets/edc3ce48-7251-46f8-b16c-ab8e9a25d070" height=80 width=80/> Clear Skin WebApp!
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Closed Comodomes are a real problem for skin! many secret ingredients hidden in you product causes their arousal! scan you product and check if they are safe! [Here!](https://clear-skin.vercel.app/)
